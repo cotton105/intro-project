@@ -75,7 +75,16 @@ button {
 }
 
 button:hover {
-  background-color: #38d430; /* Use brand color #38d430 for button hover */
+  background-color: #002d4d; /* Use brand color #002d4d for button hover */
+}
+
+/* Use separate colors for "add person" button */
+#addperson {
+  background-color: #38d430;
+}
+
+#addperson:hover {
+  background-color: #1f791a;
 }
 
 table {
