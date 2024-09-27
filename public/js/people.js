@@ -77,6 +77,8 @@ function editperson( ev ) {
   clearform( "personform" )
   const personrow = findancestorbytype( ev.target, "tr" )
   setformfieldvalue( "personform-name", personrow.person.name )
+  setformfieldvalue( "personform-email", personrow.person.email )
+  setformfieldvalue( "personform-notes", personrow.person.notes )
 
   showform( "personform", () => console.log("submitted peopleform") )
 
