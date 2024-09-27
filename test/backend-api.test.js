@@ -2,7 +2,7 @@ require( "../index" )
 
 const assert = require( "assert" )
 
-describe( "Api tests", function () {
+describe( "Backend API tests", function () {
   it( "should accept new entries", async function () {
     const person = {
       name: "test",
