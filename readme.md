@@ -1,5 +1,13 @@
 
 
+# Implementations
+With the below instructions in mind, here are the additions I have made to the repo.
+- Added Mocha tests
+- Implemented UI "edit" functionality
+- Adjusted button colours
+- Fixed several linting errors
+
+
 # Example starter project
 
 ## Running
