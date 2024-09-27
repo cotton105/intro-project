@@ -80,8 +80,13 @@ function editperson( ev ) {
   setformfieldvalue( "personform-email", personrow.person.email )
   setformfieldvalue( "personform-notes", personrow.person.notes )
 
-  showform( "personform", () => console.log("submitted peopleform") )
-
+  showform( "personform", async () => {
+    await updateperson(personrow.person.id,
+                        getformfieldvalue("personform-name"),
+                        getformfieldvalue("personform-email"),
+                        getformfieldvalue("personform-notes"))
+    await gopeople()
+  } )
 }
 
 /**
