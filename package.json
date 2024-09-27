@@ -1,6 +1,7 @@
 {
   "name": "intro-project",
   "scripts": {
+    "start": "node ./index.js",
     "test": "mocha --exit ./test/*.js"
   },
   "devDependencies": {
