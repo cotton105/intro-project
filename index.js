@@ -50,7 +50,7 @@ const server = http.createServer( async ( req, res ) => {
       receivedobj = JSON.parse( data )
     } catch ( e ) { /* silent */ }
 
-    if( 0 == pathname.indexOf( "/api/" ) ) {
+    if( 0 === pathname.indexOf( "/api/" ) ) {
       await api.handleapi( parsedurl, res, req, receivedobj )
     } else {
       // If the request is for a static file (HTML, CSS, JS)
