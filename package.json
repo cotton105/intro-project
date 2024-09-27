@@ -1,4 +1,5 @@
 {
+  "name": "intro-project",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "eslint": "^8.57.1",
