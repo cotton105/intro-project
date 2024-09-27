@@ -26,7 +26,7 @@ describe( "Api tests", function () {
     }
     let retrievedPerson = await getResponse.json()
     retrievedPerson = retrievedPerson[retrievedPerson.length - 1]
-    assert(attributesMatch(person, retrievedPerson))
+    assert( attributesMatch( person, retrievedPerson ) )
   } )
 
   it( "should accept edits to existing entries", async function () {
@@ -43,17 +43,17 @@ describe( "Api tests", function () {
       },
       body: JSON.stringify( person )
     }
-    const putResponse = await fetch("http://localhost:3000/api/people", putRequest)
-    if (!putResponse.ok) {
-      throw new Error(putResponse);
+    const putResponse = await fetch( "http://localhost:3000/api/people", putRequest )
+    if( !putResponse.ok ) {
+      throw new Error( putResponse )
     }
-    const getResponse = await fetch("http://localhost:3000/api/people")
-    if (!getResponse.ok) {
-      throw new Error(getResponse);
+    const getResponse = await fetch( "http://localhost:3000/api/people" )
+    if( !getResponse.ok ) {
+      throw new Error( getResponse )
     }
     let retrievedPerson = await getResponse.json()
-    retrievedPerson = retrievedPerson.filter(e => e.id === 2)[0]
-    assert(attributesMatch(person, retrievedPerson))
+    retrievedPerson = retrievedPerson.filter( e => 2 === e.id )[0]
+    assert( attributesMatch( person, retrievedPerson ) )
   } )
 
   it ( "should accept record deletion", async function () {
@@ -68,11 +68,11 @@ describe( "Api tests", function () {
  * @param {Object} compare The object to compare.
  * @returns Whether the attributes of the objects match.
  */
-function attributesMatch(base, compare) {
+function attributesMatch( base, compare ) {
   for( const attribute of Object.keys( base ) ) {
-    if (base[attribute] !== compare[attribute]) {
-      return false;
+    if( base[attribute] !== compare[attribute] ) {
+      return false
     }
   }
-  return true;
+  return true
 }
