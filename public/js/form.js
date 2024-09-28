@@ -98,7 +98,7 @@ export function cleartablerows( formid ) {
   const table = document.getElementById( formid )
 
   const rows = table.getElementsByTagName( "tr" )
-  for( let i = rows.length - 1; i > 0; i-- ) {
+  for( let i = rows.length - 1; i > 1; i-- ) {
     // @ts-ignore
     table.deleteRow( i )
   }
