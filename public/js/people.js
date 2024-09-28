@@ -116,6 +116,8 @@ export function addpersondom( person ) {
   // @ts-ignore
   newrow.person = person
   cells[ 0 ].innerText = person.name
+  cells[ 8 ].innerText = person.landlord
+  cells[ 9 ].innerText = person.building
 
   const editbutton = document.createElement( "button" )
   editbutton.textContent = "Edit"
