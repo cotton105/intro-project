@@ -4,7 +4,8 @@
 With the below instructions in mind, here are the additions I have made to the repo.
 - Added Mocha tests
 - Implemented UI "edit" functionality
-- Added "landlord" & "building" columns
+- Added *Landlord* & *Building* columns
+- Restored subheaders under *Schedule*
 - Adjusted button colours
 - Fixed several linting errors
 
