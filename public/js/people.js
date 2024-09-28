@@ -22,22 +22,26 @@ async function fetchpeople() {
 /**
  * @param { string } name
  * @param { string } email
+ * @param { string } landlord
+ * @param { string } building
  * @param { string } notes
  * @returns { Promise< object > }
  */
-async function addperson( name, email, notes ) {
-  await putdata( "people", { name, email, notes } )
+async function addperson( name, email, landlord, building, notes ) {
+  await putdata( "people", { name, email, landlord, building, notes } )
 }
 
 /**
  * 
- * @param { string } id 
- * @param { string } name 
- * @param { string } email 
+ * @param { string } id
+ * @param { string } name
+ * @param { string } email
+ * @param { string } landlord
+ * @param { string } building
  * @param { string } notes 
  */
-async function updateperson( id, name, email, notes ) {
-  await putdata( "people", { id, name, email, notes } )
+async function updateperson( id, name, email, landlord, building, notes ) {
+  await putdata( "people", { id, name, email, landlord, building, notes } )
 }
 
 
@@ -64,6 +68,8 @@ function addpersoninput() {
 
     await addperson( getformfieldvalue( "personform-name" ), 
                       getformfieldvalue( "personform-email" ), 
+                      getformfieldvalue( "personform-landlord" ), 
+                      getformfieldvalue( "personform-building" ), 
                       getformfieldvalue( "personform-notes" ) )
     await gopeople()
   } )
@@ -78,12 +84,16 @@ function editperson( ev ) {
   const personrow = findancestorbytype( ev.target, "tr" )
   setformfieldvalue( "personform-name", personrow.person.name )
   setformfieldvalue( "personform-email", personrow.person.email )
+  setformfieldvalue( "personform-landlord", personrow.person.landlord )
+  setformfieldvalue( "personform-building", personrow.person.building )
   setformfieldvalue( "personform-notes", personrow.person.notes )
 
   showform( "personform", async () => {
     await updateperson(personrow.person.id,
                         getformfieldvalue("personform-name"),
                         getformfieldvalue("personform-email"),
+                        getformfieldvalue("personform-landlord"),
+                        getformfieldvalue("personform-building"),
                         getformfieldvalue("personform-notes"))
     await gopeople()
   } )
@@ -99,7 +109,7 @@ export function addpersondom( person ) {
   const newrow = table.insertRow()
 
   const cells = []
-  for( let i = 0; i < ( 2 + 7 ); i++ ) {
+  for( let i = 0; i < ( 4 + 7 ); i++ ) {
     cells.push( newrow.insertCell( i ) )
   }
 
@@ -111,5 +121,5 @@ export function addpersondom( person ) {
   editbutton.textContent = "Edit"
   editbutton.addEventListener( "click", editperson )
 
-  cells[ 8 ].appendChild( editbutton )
+  cells[ 10 ].appendChild( editbutton )
 }
