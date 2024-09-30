@@ -18,15 +18,17 @@ const schemastatement = `CREATE TABLE IF NOT EXISTS "Buildings" (
 CREATE TABLE IF NOT EXISTS "People" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"name"	TEXT NOT NULL,
+	"email"	TEXT,
 	"schedule"	INTEGER,
 	"landlord"	INTEGER,
 	"building"	INTEGER,
 	"room"	INTEGER,
-	FOREIGN KEY("landlord") REFERENCES "People"("id"),
+	"notes"	TEXT,
 	FOREIGN KEY("building") REFERENCES "Buildings"("id"),
-	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("schedule") REFERENCES "Schedules"("id"),
+	FOREIGN KEY("landlord") REFERENCES "People"("id"),
 	FOREIGN KEY("room") REFERENCES "Rooms"("id"),
-	FOREIGN KEY("schedule") REFERENCES "Schedules"("id")
+	PRIMARY KEY("id" AUTOINCREMENT)
 );
 
 CREATE TABLE IF NOT EXISTS "Rooms" (
