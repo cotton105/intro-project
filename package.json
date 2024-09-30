@@ -9,5 +9,8 @@
     "eslint": "^8.57.1",
     "globals": "^15.9.0",
     "mocha": "^10.7.3"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
   }
 }
