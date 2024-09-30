@@ -1,6 +1,7 @@
 const sqlite3 = require( "sqlite3" ).verbose()
 
 const config = require( "../config.js" )
+const { closedatabase } = require( "../util/database.js" )
 
 const db = new sqlite3.Database( config.dbpath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, ( err ) => {
   if( err ) {
@@ -58,8 +59,4 @@ db.exec( schemastatement, function ( err ) {
   console.log( "Successfully initialised Database." )
 } )
 
-db.close( function ( err ) {
-  if( err ) {
-    return console.error( err )
-  }
-} )
+closedatabase( db )
