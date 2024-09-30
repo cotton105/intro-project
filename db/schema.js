@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS "Schedules" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );`
 
-db.run( schemastatement, function ( err ) {
+db.exec( schemastatement, function ( err ) {
   if( err ) {
     return console.error( err )
   }
