@@ -2,6 +2,8 @@ require( "../index" )
 
 const assert = require( "assert" )
 
+const { attributesmatch } = require( "../util/objects" )
+
 describe( "Backend API tests", function () {
   it( "should accept new entries", async function () {
     const person = {
@@ -26,7 +28,7 @@ describe( "Backend API tests", function () {
     }
     let retrievedPerson = await getResponse.json()
     retrievedPerson = retrievedPerson[retrievedPerson.length - 1]
-    assert( attributesMatch( person, retrievedPerson ) )
+    assert( attributesmatch( person, retrievedPerson ) )
   } )
 
   it( "should accept edits to existing entries", async function () {
@@ -53,26 +55,10 @@ describe( "Backend API tests", function () {
     }
     let retrievedPerson = await getResponse.json()
     retrievedPerson = retrievedPerson.filter( e => 2 === e.id )[0]
-    assert( attributesMatch( person, retrievedPerson ) )
+    assert( attributesmatch( person, retrievedPerson ) )
   } )
 
   it ( "should accept record deletion", async function () {
     throw new Error( "Unimplemented test" )
   } )
 } )
-
-/**
- * Checks whether two objects have matching attributes. Only uses the `base` object's attributes,
- * so `compare` may include attributes that `base` doesn't.
- * @param {Object} base The object to base the comparison off.
- * @param {Object} compare The object to compare.
- * @returns Whether the attributes of the objects match.
- */
-function attributesMatch( base, compare ) {
-  for( const attribute of Object.keys( base ) ) {
-    if( base[attribute] !== compare[attribute] ) {
-      return false
-    }
-  }
-  return true
-}
