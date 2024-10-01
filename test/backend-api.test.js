@@ -5,6 +5,10 @@ const assert = require( "assert" )
 const { attributesmatch } = require( "../util/objects" )
 
 describe( "Backend API tests", function () {
+  it( "should generate an empty database on first startup", async function () {
+    throw new Error( "Unimplemented test." )
+  } )
+
   it( "should accept new entries", async function () {
     const person = {
       name: "test",
@@ -59,6 +63,6 @@ describe( "Backend API tests", function () {
   } )
 
   it ( "should accept record deletion", async function () {
-    throw new Error( "Unimplemented test" )
+    throw new Error( "Unimplemented test." )
   } )
 } )
