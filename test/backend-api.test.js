@@ -13,7 +13,7 @@ describe( "Backend API tests", function () {
     const person = {
       name: "test",
       email: "test@test.com",
-      notes: "test"
+      notes: "Added by Unit Testing"
     }
     const putRequest = {
       method: "PUT",
@@ -37,10 +37,10 @@ describe( "Backend API tests", function () {
 
   it( "should accept edits to existing entries", async function () {
     const person = {
-      id: 2,
-      name: "Miss Piggy",
-      email: "misspiggy@example.com",
-      notes: "Pig"
+      id: 1,
+      name: "test (edited)",
+      email: "editedtest@test.com",
+      notes: "Edited by Unit testing"
     }
     const putRequest = {
       method: "PUT",
@@ -58,7 +58,7 @@ describe( "Backend API tests", function () {
       throw new Error( getResponse )
     }
     let retrievedPerson = await getResponse.json()
-    retrievedPerson = retrievedPerson.filter( e => 2 === e.id )[0]
+    retrievedPerson = retrievedPerson.filter( person => 1 === person.id )[0]
     assert( attributesmatch( person, retrievedPerson ) )
   } )
 
