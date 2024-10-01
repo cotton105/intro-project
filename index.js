@@ -3,7 +3,7 @@ const http = require( "http" )
 const fs = require( "fs" )
 const path = require( "path" )
 
-require( "./db/schema" )
+require( "./db/schema" ).initdatabase()
 const api = require( "./lib/api" )
 
 const publicdirectory = path.join( __dirname, "public" )

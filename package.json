@@ -11,6 +11,6 @@
     "mocha": "^10.7.3"
   },
   "dependencies": {
-    "sqlite3": "^5.1.7"
+    "better-sqlite3": "^11.3.0"
   }
 }
