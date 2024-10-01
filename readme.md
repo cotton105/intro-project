@@ -1,14 +1,23 @@
 
 
 # Implementations
-With the below instructions in mind, here are the additions I have made to the repo.
-- Added Mocha tests
-- Implemented UI "edit" functionality
-- Added *Landlord* & *Building* columns
-- Restored subheaders under *Schedule*
-- Adjusted button colours
-- Fixed several linting errors
+With the below instructions in mind, here are the additions I have made to the repo:
+- Added Mocha tests.
+- Implemented UI "edit" functionality.
+- Implemented persistent data with SQLite (configurable with `DB_PATH` env variable).
+- Added *Landlord* & *Building* columns.
+- Restored subheaders under *Schedule*.
+- Adjusted button colours.
+- Fixed several linting errors.
 
+## My Run Configuration
+Because there are no specified program versions, here is the configuration I'm using:
+```bash
+$ npm --version
+10.5.0
+$ node --version
+v21.7.3
+```
 
 # Example starter project
 
@@ -32,9 +41,9 @@ Some tasks - choose as many or as few as you would like to complete.
 
 1. Add some tests - a test suite such as Mocha will require adding. The Node backend functions require testing as well as front end functions.
 2. The person table needs to be completed - at the very least complete the edit function.
-2. Convert the backend to use a non-volatile data store - a simple option would be to build in support for SQLite to save data to a database.
-3. We need to add further elements - Landlords and Buildings. Buildings require Rooms.
-4. Consider the UI - can it be improved - what would you suggest?
+3. Convert the backend to use a non-volatile data store - a simple option would be to build in support for SQLite to save data to a database.
+4. We need to add further elements - Landlords and Buildings. Buildings require Rooms.
+5. Consider the UI - can it be improved - what would you suggest?
 
 ## Gotchas
 
