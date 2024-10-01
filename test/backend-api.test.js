@@ -1,12 +1,26 @@
 require( "../index" )
 
 const assert = require( "assert" )
+const fs = require( "fs/promises" )
+const Database = require( "better-sqlite3" )
 
+const config = require( "../config" )
 const { attributesmatch } = require( "../util/objects" )
+const { initdatabase } = require( "../db/schema" )
 
-describe( "Backend API tests", function () {
-  it( "should generate an empty database on first startup", async function () {
-    throw new Error( "Unimplemented test." )
+describe( "Backend API tests", async function () {
+  it( "should generate a valid database if missing", async function () {
+    await fs.rm( config.dbpath )
+    await initdatabase()
+    const expectedtables = ["People", "Buildings", "Rooms", "Schedules"]
+    const db = new Database( config.dbpath, { fileMustExist: true } )
+    const sql = db.prepare( "SELECT name FROM sqlite_schema WHERE type = 'table' AND name NOT LIKE 'sqlite_%'" )
+    const rows = sql.all()
+    db.close()
+    const retrievedtables = rows.map( row => row.name )
+    for( const expectedtable of expectedtables ) {
+      assert( retrievedtables.includes( expectedtable ) )
+    }
   } )
 
   it( "should accept new entries", async function () {
