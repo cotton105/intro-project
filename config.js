@@ -10,7 +10,8 @@ if( undefined !== process.env.DB_PATH ) {
 }
 
 const config = {
-  dbpath
+  dbpath,
+  port: process.env.PORT ?? 3000
 }
 
 module.exports = config

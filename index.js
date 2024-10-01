@@ -3,6 +3,7 @@ const http = require( "http" )
 const fs = require( "fs" )
 const path = require( "path" )
 
+const config = require( "./config" )
 require( "./db/schema" ).initdatabase()
 const api = require( "./lib/api" )
 
@@ -74,7 +75,6 @@ const server = http.createServer( async ( req, res ) => {
 } )
 
 
-const port = process.env.PORT || 3000
-server.listen( port, () => {
-  console.log( `Server is running on port ${port}` )
+server.listen( config.port, () => {
+  console.log( `Server is running on port ${config.port}` )
 } )
