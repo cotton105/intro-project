@@ -2,6 +2,9 @@ const Database = require( "better-sqlite3" )
 
 const config = require( "../config.js" )
 
+/**
+ * Initialise the Database tables with the correct schema if they don't already exist.
+ */
 async function initdatabase() {
   const db = new Database( config.dbpath )
   const createtables = [
