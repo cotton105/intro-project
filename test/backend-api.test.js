@@ -36,11 +36,11 @@ describe( "Backend API tests", async function () {
       },
       body: JSON.stringify( person )
     }
-    const putresponse = await fetch( "http://localhost:3000/api/people", putrequest )
+    const putresponse = await fetch( `http://localhost:${config.port}/api/people`, putrequest )
     if( !putresponse.ok ) {
       throw new Error( putresponse )
     }
-    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
@@ -63,11 +63,11 @@ describe( "Backend API tests", async function () {
       },
       body: JSON.stringify( person )
     }
-    const putresponse = await fetch( "http://localhost:3000/api/people", putrequest )
+    const putresponse = await fetch( `http://localhost:${config.port}/api/people`, putrequest )
     if( !putresponse.ok ) {
       throw new Error( putresponse )
     }
-    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
@@ -79,11 +79,11 @@ describe( "Backend API tests", async function () {
   it ( "should accept record deletion", async function () {
     const personid = 1
     const deleterequest = { method: "DELETE" }
-    const deleteresponse = await fetch( `http://localhost:3000/api/people/${personid}`, deleterequest )
+    const deleteresponse = await fetch( `http://localhost:${config.port}/api/people/${personid}`, deleterequest )
     if( !deleteresponse.ok ) {
       throw new Error( deleteresponse )
     }
-    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
