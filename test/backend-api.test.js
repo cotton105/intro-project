@@ -29,24 +29,24 @@ describe( "Backend API tests", async function () {
       email: "test@test.com",
       notes: "Added by Unit Testing"
     }
-    const putRequest = {
+    const putrequest = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify( person )
     }
-    const putResponse = await fetch( "http://localhost:3000/api/people", putRequest )
-    if( !putResponse.ok ) {
-      throw new Error( putResponse )
+    const putresponse = await fetch( "http://localhost:3000/api/people", putrequest )
+    if( !putresponse.ok ) {
+      throw new Error( putresponse )
     }
-    const getResponse = await fetch( "http://localhost:3000/api/people" )
-    if( !getResponse.ok ) {
-      throw new Error( getResponse )
+    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    if( !getresponse.ok ) {
+      throw new Error( getresponse )
     }
-    let retrievedPerson = await getResponse.json()
-    retrievedPerson = retrievedPerson[retrievedPerson.length - 1]
-    assert( attributesmatch( person, retrievedPerson ) )
+    let retrievedperson = await getresponse.json()
+    retrievedperson = retrievedperson[retrievedperson.length - 1]
+    assert( attributesmatch( person, retrievedperson ) )
   } )
 
   it( "should accept edits to existing entries", async function () {
@@ -56,27 +56,39 @@ describe( "Backend API tests", async function () {
       email: "editedtest@test.com",
       notes: "Edited by Unit testing"
     }
-    const putRequest = {
+    const putrequest = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify( person )
     }
-    const putResponse = await fetch( "http://localhost:3000/api/people", putRequest )
-    if( !putResponse.ok ) {
-      throw new Error( putResponse )
+    const putresponse = await fetch( "http://localhost:3000/api/people", putrequest )
+    if( !putresponse.ok ) {
+      throw new Error( putresponse )
     }
-    const getResponse = await fetch( "http://localhost:3000/api/people" )
-    if( !getResponse.ok ) {
-      throw new Error( getResponse )
+    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    if( !getresponse.ok ) {
+      throw new Error( getresponse )
     }
-    let retrievedPerson = await getResponse.json()
-    retrievedPerson = retrievedPerson.filter( person => 1 === person.id )[0]
-    assert( attributesmatch( person, retrievedPerson ) )
+    let retrievedperson = await getresponse.json()
+    retrievedperson = retrievedperson.filter( person => 1 === person.id )[0]
+    assert( attributesmatch( person, retrievedperson ) )
   } )
 
   it ( "should accept record deletion", async function () {
-    throw new Error( "Unimplemented test." )
+    const personid = 1
+    const deleterequest = { method: "DELETE" }
+    const deleteresponse = await fetch( `http://localhost:3000/api/people/${personid}`, deleterequest )
+    if( !deleteresponse.ok ) {
+      throw new Error( deleteresponse )
+    }
+    const getresponse = await fetch( "http://localhost:3000/api/people" )
+    if( !getresponse.ok ) {
+      throw new Error( getresponse )
+    }
+    let retrievedperson = await getresponse.json()
+    retrievedperson = retrievedperson[personid - 1]
+    assert( 0 === Object.keys( retrievedperson ).length && retrievedperson.constructor === Object )
   } )
 } )
