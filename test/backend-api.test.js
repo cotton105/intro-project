@@ -8,6 +8,8 @@ const config = require( "../config" )
 const { attributesmatch } = require( "../util/objects" )
 const { initdatabase } = require( "../db/schema" )
 
+const homepageurl = `http://localhost:${config.port}`
+
 describe( "Backend API tests", async function () {
   it( "should generate a valid database if missing", async function () {
     await fs.rm( config.dbpath )
@@ -36,11 +38,11 @@ describe( "Backend API tests", async function () {
       },
       body: JSON.stringify( person )
     }
-    const putresponse = await fetch( `http://localhost:${config.port}/api/people`, putrequest )
+    const putresponse = await fetch( `${homepageurl}/api/people`, putrequest )
     if( !putresponse.ok ) {
       throw new Error( putresponse )
     }
-    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
+    const getresponse = await fetch( `${homepageurl}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
@@ -63,11 +65,11 @@ describe( "Backend API tests", async function () {
       },
       body: JSON.stringify( person )
     }
-    const putresponse = await fetch( `http://localhost:${config.port}/api/people`, putrequest )
+    const putresponse = await fetch( `${homepageurl}/api/people`, putrequest )
     if( !putresponse.ok ) {
       throw new Error( putresponse )
     }
-    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
+    const getresponse = await fetch( `${homepageurl}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
@@ -79,11 +81,11 @@ describe( "Backend API tests", async function () {
   it ( "should accept record deletion", async function () {
     const personid = 1
     const deleterequest = { method: "DELETE" }
-    const deleteresponse = await fetch( `http://localhost:${config.port}/api/people/${personid}`, deleterequest )
+    const deleteresponse = await fetch( `${homepageurl}/api/people/${personid}`, deleterequest )
     if( !deleteresponse.ok ) {
       throw new Error( deleteresponse )
     }
-    const getresponse = await fetch( `http://localhost:${config.port}/api/people` )
+    const getresponse = await fetch( `${homepageurl}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
