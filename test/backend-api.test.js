@@ -78,7 +78,7 @@ describe( "Backend API tests", async function () {
     assert( attributesmatch( person, retrievedperson ) )
   } )
 
-  it ( "should accept record deletion", async function () {
+  it( "should accept record deletion", async function () {
     const personid = 1
     const deleterequest = { method: "DELETE" }
     const deleteresponse = await fetch( `${homepageurl}/api/people/${personid}`, deleterequest )
@@ -91,6 +91,7 @@ describe( "Backend API tests", async function () {
     }
     let retrievedperson = await getresponse.json()
     retrievedperson = retrievedperson[personid - 1]
-    assert( 0 === Object.keys( retrievedperson ).length && retrievedperson.constructor === Object )
+    assert.equal( 0, Object.keys( retrievedperson ).length )
+    assert.equal( retrievedperson.constructor, Object )
   } )
 } )
