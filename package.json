@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node ./index.js",
     "test": "NODE_ENV=TEST mocha --exit ./test/*.js",
-    "eslint": "npx eslint --fix --no-warn-ignored **/*.js"
+    "eslint": "npx eslint --fix --no-warn-ignored '**/*.js'"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
