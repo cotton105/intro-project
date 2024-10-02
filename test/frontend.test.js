@@ -6,6 +6,8 @@ const chrome = require( "selenium-webdriver/chrome" )
 const { Builder, Browser, By, Key, until } = require( "selenium-webdriver" )
 
 const config = require( "../config" )
+const { attributesmatch } = require( "../util/objects" )
+
 const homepageurl = `http://localhost:${config.port}`
 
 describe( "Frontend tests", function () {
@@ -24,6 +26,7 @@ describe( "Frontend tests", function () {
     }
   ]
 
+  // Run tests for each configured browser sequentially
   browsers.forEach( browser => {
     describe( browser.name, function () {
       let driver
@@ -35,7 +38,7 @@ describe( "Frontend tests", function () {
         await driver.get( homepageurl )
         const expectedtitle = "Work!"
         const pagetitle = await driver.getTitle()
-        assert( expectedtitle === pagetitle, `Page title was "${pagetitle}" - expected "${expectedtitle}".` )
+        assert.equal( expectedtitle, pagetitle )
       } )
 
       it( "should correctly display the users in the database on the table", async function () {
@@ -54,6 +57,32 @@ describe( "Frontend tests", function () {
           const tablepersonname = await rowcolumns[0].getText()
           assert.equal( apipersonname, tablepersonname )
         }
+      } )
+
+      it( "should allow adding a new person", async function () {
+        await driver.get( homepageurl )
+        const addpersonbutton = await driver.findElement( By.id( "addperson" ) )
+        const personform = await driver.findElement( By.id( "personform" ) )
+        await addpersonbutton.click()
+        driver.wait( until.elementIsVisible( personform ) )
+        assert( await personform.isDisplayed() )
+        const person = {
+          name: "Frontend test",
+          email: "test@example.com",
+          notes: "Added by frontend test for submitting a new user"
+        }
+        for( const attribute of Object.keys( person ) ) {
+          const personvalue = person[attribute]
+          const forminput = await driver.findElement( By.id( `personform-${attribute}` ) )
+          await forminput.sendKeys( personvalue )
+        }
+        const submitbutton = await personform.findElement( By.id( "personform-submit" ) )
+        await submitbutton.click()
+        driver.wait( until.elementIsNotVisible( personform ) )
+        const peopletable = await driver.findElement( By.id( "peopletable" ) )
+        const lastaddedrow = await peopletable.findElements( By.css( "tbody > tr" ) ).then( rows => rows.at( -1 ) )
+        const addedperson = await lastaddedrow.getProperty( "person" )
+        assert( attributesmatch( person, addedperson ) )
       } )
 
       after( async function () {
