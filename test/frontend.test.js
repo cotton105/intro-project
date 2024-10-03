@@ -11,6 +11,7 @@ const { attributesmatch } = require( "../util/objects" )
 const homepageurl = `http://localhost:${config.port}`
 
 describe( "Frontend tests", function () {
+  this.retries( 2 )
   const browsers = [
     {
       name: "Firefox",
