@@ -87,6 +87,14 @@ button:hover {
   background-color: #1f791a;
 }
 
+button.deleteperson {
+  background-color: #d11d1d;
+}
+
+button.deleteperson:hover {
+  background-color: #681010;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;

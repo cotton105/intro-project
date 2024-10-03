@@ -43,3 +43,9 @@ export async function putdata( api, data ) {
   await fetch( url, request )
 }
 
+export async function deletedata( api, data ) {
+  const request = { method: "DELETE" }
+  const url = `${rooturl}${api}?id=${data.id}`
+  await fetch( url, request )
+}
+

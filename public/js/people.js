@@ -1,6 +1,6 @@
 
 
-import { getdata, putdata } from "./api.js"
+import { getdata, putdata, deletedata } from "./api.js"
 import { showform, getformfieldvalue, setformfieldvalue, clearform, gettablebody, cleartablerows } from "./form.js"
 import { findancestorbytype } from "./dom.js"
 
@@ -44,7 +44,13 @@ async function updateperson( id, name, email, landlord, building, notes ) {
   await putdata( "people", { id, name, email, landlord, building, notes } )
 }
 
-
+/**
+ * Removes a person from the database with the given id
+ * @param { string } id 
+ */
+async function deleteperson( id ) {
+  await deletedata( "people", { id } )
+}
 
 /**
  * @returns { Promise }
@@ -99,6 +105,12 @@ function editperson( ev ) {
   } )
 }
 
+async function deletepersoninput( ev ) {
+  const personrow = findancestorbytype( ev.target, "tr" )
+  await deleteperson( personrow.person.id )
+  await gopeople()
+}
+
 /**
  * 
  * @param { object } person
@@ -124,5 +136,11 @@ export function addpersondom( person ) {
   editbutton.className = "editperson"
   editbutton.addEventListener( "click", editperson )
 
+  const deletebutton = document.createElement( "button" )
+  deletebutton.textContent = "Delete"
+  deletebutton.className = "deleteperson"
+  deletebutton.addEventListener( "click", deletepersoninput )
+
   cells[ 10 ].appendChild( editbutton )
+  cells[ 10 ].appendChild( deletebutton )
 }
