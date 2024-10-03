@@ -19,40 +19,62 @@ export async function getdata( api ) {
     } else {
       throw new Error( `Request failed with status: ${response.status}` )
     }
-  } catch (error) {
+  } catch ( error ) {
     console.error( 'Error fetching data:', error.message )
   }
 }
 
 /**
- * TODO check result
+ * Wrapper for all API PUT requests.
  * @param { string } api
  * @param { object } data
  * @returns { Promise }
  */
 export async function putdata( api, data ) {
-  const request = {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify( data )
-  }
+  try {
+    const url = rooturl + api
+    const request = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( data )
+    }
 
-  const url = rooturl + api
-  await fetch( url, request )
+    const response = await fetch( url , request )
+
+    if( !response.ok ) {
+      throw new Error( `Request failed with status: ${response.status}` )
+    }
+  } catch ( error ) {
+    console.error( 'Error fetching data:', error.message )
+  }
 }
 
+/**
+ *  * Wrapper for all API DELETE requests.
+ * @param { string } api
+ * @param { object } data
+ * @returns { Promise }
+ */
 export async function deletedata( api, data ) {
-  const request = { 
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify( data )
+  try {
+    const url = rooturl + api
+    const request = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( data )
+    }
+
+    const response = await fetch( url , request )
+
+    if( !response.ok ) {
+      throw new Error( `Request failed with status: ${response.status}` )
+    }
+  } catch ( error ) {
+    console.error( 'Error fetching data:', error.message )
   }
-  
-  const url = rooturl + api
-  await fetch( url, request )
 }
 
