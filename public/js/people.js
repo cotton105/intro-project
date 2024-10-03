@@ -121,6 +121,7 @@ export function addpersondom( person ) {
 
   const editbutton = document.createElement( "button" )
   editbutton.textContent = "Edit"
+  editbutton.className = "editperson"
   editbutton.addEventListener( "click", editperson )
 
   cells[ 10 ].appendChild( editbutton )
