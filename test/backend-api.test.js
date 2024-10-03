@@ -85,15 +85,21 @@ describe( "Backend API tests", async function () {
       throw new Error( getresponse )
     }
     const initiallength = await getresponse.json().then( json => json.length )
-    const deleterequest = { method: "DELETE" }
-    const deleteresponse = await fetch( `${homepageurl}/api/people?id=${personid}`, deleterequest )
+    const deleterequest = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify( { id: personid } )
+    }
+    const deleteresponse = await fetch( `${homepageurl}/api/people`, deleterequest )
     if( !deleteresponse.ok ) {
       throw new Error( deleteresponse )
     }
     getresponse = await fetch( `${homepageurl}/api/people` )
     const retrievedpeople = await getresponse.json()
     assert.strictEqual( retrievedpeople.length, initiallength - 1, "Number of retrieved people did not reduce after DELETE request." )
-    assert.strictEqual( Object.keys( retrievedpeople[personid - 1] ).length, 0 )
-    assert.strictEqual( retrievedpeople.constructor, Object )
+    const targetperson = retrievedpeople.filter( person => person.id === personid )[0]
+    assert( undefined === targetperson )
   } )
 } )
