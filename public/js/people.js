@@ -12,7 +12,7 @@ document.addEventListener( "DOMContentLoaded", async function() {
 
 
 /**
- * 
+ * Call api function to retrieve list of people.
  * @returns { Promise< object > }
  */
 async function fetchpeople() {
@@ -20,6 +20,7 @@ async function fetchpeople() {
 }
 
 /**
+ * Call api function to add a new user.
  * @param { string } name
  * @param { string } email
  * @param { string } landlord
@@ -32,7 +33,7 @@ async function addperson( name, email, landlord, building, notes ) {
 }
 
 /**
- * 
+ * Call api function to update user details.
  * @param { string } id
  * @param { string } name
  * @param { string } email
@@ -53,6 +54,7 @@ async function deleteperson( id ) {
 }
 
 /**
+ * Refresh the table of people.
  * @returns { Promise }
  */
 async function gopeople() {
@@ -65,7 +67,7 @@ async function gopeople() {
 }
 
 /**
- * 
+ * Handle adding a new user.
  */
 function addpersoninput() {
 
@@ -82,7 +84,8 @@ function addpersoninput() {
 }
 
 /**
- * 
+ * Handle user editing.
+ * @param { PointerEvent } ev 
  */
 function editperson( ev ) {
 
@@ -105,14 +108,21 @@ function editperson( ev ) {
   } )
 }
 
+/**
+ * Handle user deletion.
+ * @param { PointerEvent } ev 
+ */
 async function deletepersoninput( ev ) {
   const personrow = findancestorbytype( ev.target, "tr" )
-  await deleteperson( personrow.person.id )
-  await gopeople()
+  document.getElementById( "deletepopupmessage" ).innerHTML = `Are you sure you want to delete <em>${personrow.person.name}</em> with ID ${personrow.person.id}?`
+  showform( "confirmdeletionform", async () => {
+    await deleteperson( personrow.person.id )
+    await gopeople()
+  } )
 }
 
 /**
- * 
+ * Adds person information to the table.
  * @param { object } person
  */
 export function addpersondom( person ) {

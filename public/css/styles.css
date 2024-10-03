@@ -87,6 +87,14 @@ button:hover {
   background-color: #1f791a;
 }
 
+#confirmdeletionform-submit {
+  background-color: #d11d1d;
+}
+
+#confirmdeletionform-submit:hover {
+  background-color: #681010;
+}
+
 button.deleteperson {
   background-color: #d11d1d;
 }
