@@ -48,8 +48,7 @@ describe( "Frontend tests", function () {
         }
         const apipeople = await getresponse.json()
         await driver.get( homepageurl )
-        const table = await driver.findElement( By.id( "peopletable" ) )
-        const tablerows = await table.findElements( By.css( "tbody > tr" ) )
+        const tablerows = await getpeopletablerows( driver )
         assert.equal( tablerows.length, apipeople.length )
         for( let i = 0; i < apipeople.length; i++ ) {
           const apipersonname = apipeople[i].name
@@ -83,8 +82,8 @@ describe( "Frontend tests", function () {
         driver.wait( until.elementIsNotVisible( personform ) )
         assert( !( await personform.isDisplayed() ) )
         // Check that the new user is added to the table
-        const peopletable = await driver.findElement( By.id( "peopletable" ) )
-        const lastaddedrow = await peopletable.findElements( By.css( "tbody > tr" ) ).then( rows => rows.at( -1 ) )
+        const tablerows = await getpeopletablerows( driver )
+        const lastaddedrow = tablerows.at( -1 )
         const addedperson = await lastaddedrow.getProperty( "person" )
         assert( attributesmatch( person, addedperson ) )
       } )
@@ -93,11 +92,10 @@ describe( "Frontend tests", function () {
         await driver.get( homepageurl )
         // Check that the "edit" button can be accessed for a specified row
         const targeteditid = 1
-        const peopletable = await driver.findElement( By.id( "peopletable" ) )
         const personform = await driver.findElement( By.id( "personform" ) )
-        const editpersonbutton = await peopletable.findElements( By.css( "tbody > tr" ) )
-          .then( rows => rows.at( targeteditid - 1 ) )
-          .then( async targetrow => await targetrow.findElement( By.className( "editperson" ) ) )
+        let tablerows = await getpeopletablerows( driver )
+        let targetrow = tablerows.at( targeteditid - 1 )
+        const editpersonbutton = await targetrow.findElement( By.className( "editperson" ) )
         await editpersonbutton.click()
         driver.wait( until.elementIsVisible( personform ) )
         assert( await personform.isDisplayed() )
@@ -118,10 +116,41 @@ describe( "Frontend tests", function () {
         driver.wait( until.elementIsNotVisible( personform ) )
         assert( !( await personform.isDisplayed() ) )
         // Check edits are correctly applied
-        const targetrow = await peopletable.findElements( By.css( "tbody > tr" ) )
-          .then( rows => rows.at( targeteditid - 1 ) )
+        tablerows = await getpeopletablerows( driver )
+        targetrow = tablerows.at( targeteditid - 1 )
         const editedperson = await targetrow.getProperty( "person" )
         assert( attributesmatch( person, editedperson ) )
+      } )
+
+      it( "should allow deleting an existing person", async function () {
+        await driver.get( homepageurl )
+        // Check the confirmation form is displayed
+        const targetrownumber = 0
+        let tablerows = await getpeopletablerows( driver )
+        const deleteform = await driver.findElement( By.id( "confirmdeletionform" ) )
+        const targetrow = await tablerows.at( targetrownumber )
+        const personid = await targetrow.getProperty( "person" )
+          .then( person => person.id )
+        const deletepersonbutton = await targetrow.findElement( By.className( "deleteperson" ) )
+
+        await deletepersonbutton.click()
+        await driver.wait( until.elementIsVisible( deleteform ) )
+        assert( await deleteform.isDisplayed() )
+        // Check that the delete confirmation can be submitted
+        const confirmbutton = await driver.findElement( By.id( "confirmdeletionform-submit" ) )
+        await confirmbutton.click()
+        await driver.wait( until.elementIsNotVisible( deleteform ) )
+        assert( !( await deleteform.isDisplayed() ) )
+        // Check that the user is successfully removed from the table
+        // const users = await tablerows.map( async row => await row.getProperty( "person" ) )
+        const users = []
+        tablerows = await getpeopletablerows( driver )
+        for( const row of tablerows ) {
+          const person = await row.getProperty( "person" )
+          users.push( person )
+        }
+        const targetuser = users.filter( user => user.id === personid )[0]
+        assert.strictEqual( targetuser, undefined )
       } )
 
       after( async function () {
@@ -130,3 +159,8 @@ describe( "Frontend tests", function () {
     } )
   } )
 } )
+
+async function getpeopletablerows( driver ) {
+  return await driver.findElement( By.id( "peopletable" ) )
+    .then( async peopletable => await peopletable.findElements( By.css( "tbody > tr" ) ) )
+}
