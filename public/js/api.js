@@ -44,8 +44,15 @@ export async function putdata( api, data ) {
 }
 
 export async function deletedata( api, data ) {
-  const request = { method: "DELETE" }
-  const url = `${rooturl}${api}?id=${data.id}`
+  const request = { 
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify( data )
+  }
+  
+  const url = rooturl + api
   await fetch( url, request )
 }
 
