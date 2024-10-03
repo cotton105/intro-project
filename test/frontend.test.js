@@ -38,7 +38,7 @@ describe( "Frontend tests", function () {
         await driver.get( homepageurl )
         const expectedtitle = "Work!"
         const pagetitle = await driver.getTitle()
-        assert.equal( expectedtitle, pagetitle )
+        assert.equal( pagetitle, expectedtitle )
       } )
 
       it( "should correctly display the users in the database on the table", async function () {
@@ -50,12 +50,12 @@ describe( "Frontend tests", function () {
         await driver.get( homepageurl )
         const table = await driver.findElement( By.id( "peopletable" ) )
         const tablerows = await table.findElements( By.css( "tbody > tr" ) )
-        assert.equal( apipeople.length, tablerows.length )
+        assert.equal( tablerows.length, apipeople.length )
         for( let i = 0; i < apipeople.length; i++ ) {
           const apipersonname = apipeople[i].name
           const rowcolumns = await tablerows[i].findElements( By.css( "td" ) )
           const tablepersonname = await rowcolumns[0].getText()
-          assert.equal( apipersonname, tablepersonname )
+          assert.equal( tablepersonname, apipersonname )
         }
       } )
 

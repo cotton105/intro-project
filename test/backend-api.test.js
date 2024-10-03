@@ -80,18 +80,20 @@ describe( "Backend API tests", async function () {
 
   it( "should accept record deletion", async function () {
     const personid = 1
-    const deleterequest = { method: "DELETE" }
-    const deleteresponse = await fetch( `${homepageurl}/api/people/${personid}`, deleterequest )
-    if( !deleteresponse.ok ) {
-      throw new Error( deleteresponse )
-    }
-    const getresponse = await fetch( `${homepageurl}/api/people` )
+    let getresponse = await fetch( `${homepageurl}/api/people` )
     if( !getresponse.ok ) {
       throw new Error( getresponse )
     }
-    let retrievedperson = await getresponse.json()
-    retrievedperson = retrievedperson[personid - 1]
-    assert.equal( 0, Object.keys( retrievedperson ).length )
-    assert.equal( retrievedperson.constructor, Object )
+    const initiallength = await getresponse.json().then( json => json.length )
+    const deleterequest = { method: "DELETE" }
+    const deleteresponse = await fetch( `${homepageurl}/api/people?id=${personid}`, deleterequest )
+    if( !deleteresponse.ok ) {
+      throw new Error( deleteresponse )
+    }
+    getresponse = await fetch( `${homepageurl}/api/people` )
+    const retrievedpeople = await getresponse.json()
+    assert.strictEqual( retrievedpeople.length, initiallength - 1, "Number of retrieved people did not reduce after DELETE request." )
+    assert.strictEqual( Object.keys( retrievedpeople[personid - 1] ).length, 0 )
+    assert.strictEqual( retrievedpeople.constructor, Object )
   } )
 } )
