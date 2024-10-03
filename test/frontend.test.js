@@ -64,7 +64,7 @@ describe( "Frontend tests", function () {
         const addpersonbutton = await driver.findElement( By.id( "addperson" ) )
         const personform = await driver.findElement( By.id( "personform" ) )
         await addpersonbutton.click()
-        driver.wait( until.elementIsVisible( personform ) )
+        await driver.wait( until.elementIsVisible( personform ) )
         assert( await personform.isDisplayed() )
         // Check that new user information can be submitted through the form
         const person = {
@@ -79,7 +79,7 @@ describe( "Frontend tests", function () {
         }
         const submitbutton = await personform.findElement( By.id( "personform-submit" ) )
         await submitbutton.click()
-        driver.wait( until.elementIsNotVisible( personform ) )
+        await driver.wait( until.elementIsNotVisible( personform ) )
         assert( !( await personform.isDisplayed() ) )
         // Check that the new user is added to the table
         const tablerows = await getpeopletablerows( driver )
@@ -97,7 +97,7 @@ describe( "Frontend tests", function () {
         let targetrow = tablerows.at( targeteditid - 1 )
         const editpersonbutton = await targetrow.findElement( By.className( "editperson" ) )
         await editpersonbutton.click()
-        driver.wait( until.elementIsVisible( personform ) )
+        await driver.wait( until.elementIsVisible( personform ) )
         assert( await personform.isDisplayed() )
         // Check that new details can be entered for the existing user
         const person = {
@@ -113,7 +113,7 @@ describe( "Frontend tests", function () {
         }
         const submitbutton = await personform.findElement( By.id( "personform-submit" ) )
         await submitbutton.click()
-        driver.wait( until.elementIsNotVisible( personform ) )
+        await driver.wait( until.elementIsNotVisible( personform ) )
         assert( !( await personform.isDisplayed() ) )
         // Check edits are correctly applied
         tablerows = await getpeopletablerows( driver )
