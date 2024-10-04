@@ -50,13 +50,17 @@ describe( "Frontend tests", function () {
   browsers.forEach( browser => {
     describe( browser.name, function () {
       let driver
-      beforeEach( "Set up WebDriver", async function() {
+      before( "Check that the browser driver can be built", async function () {
         try {
-          driver = browser.driver.build()
+          browser.driver.build()
         } catch ( err ) {
           console.error( err )
           this.skip()
         }
+      } )
+
+      beforeEach( "Set up WebDriver", async function() {
+        driver = browser.driver.build()
       } )
 
       it( "should correctly display the web page", async function () {
@@ -178,7 +182,7 @@ describe( "Frontend tests", function () {
         assert.strictEqual( targetuser, undefined )
       } )
 
-      afterEach( async function () {
+      afterEach( "Tear down WebDriver", async function () {
         if( undefined !== driver ) {
           await driver.quit()
         }
