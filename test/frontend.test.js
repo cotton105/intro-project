@@ -3,7 +3,10 @@ require( "../index" )
 const assert = require( "assert" )
 const firefox = require( "selenium-webdriver/firefox" )
 const chrome = require( "selenium-webdriver/chrome" )
-const { Builder, Browser, By, Key, until } = require( "selenium-webdriver" )
+const edge = require( "selenium-webdriver/edge" )
+// const internetexplorer = require( "selenium-webdriver/ie" )
+// const safari = require( "selenium-webdriver/safari" )
+const { Builder, Browser, By, /* Key, */ until } = require( "selenium-webdriver" )
 
 const config = require( "../config" )
 const { attributesmatch } = require( "../util/objects" )
@@ -23,7 +26,23 @@ describe( "Frontend tests", function () {
       name: "Chrome",
       driver: new Builder()
         .forBrowser( Browser.CHROME )
-        .setChromeOptions( new chrome.Options().addArguments( "--headless" ) )
+        .setChromeOptions( new chrome.Options().addArguments( "--headless=new" ) )
+    },
+    {
+      name: "Edge",
+      driver: new Builder()
+        .forBrowser( Browser.EDGE )
+        .setEdgeOptions( new edge.Options().addArguments( "--headless=new" ) )
+    },
+    {
+      name: "Internet Explorer",
+      driver: new Builder()
+        .forBrowser( Browser.INTERNET_EXPLORER )
+    },
+    {
+      name: "Safari",
+      driver: new Builder()
+        .forBrowser( Browser.SAFARI )
     }
   ]
 
