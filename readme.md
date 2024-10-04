@@ -3,7 +3,8 @@
 # Implementations
 With the below instructions in mind, here are the additions I have made to the repo:
 - Added Mocha tests.
-- Implemented UI "edit" functionality.
+- Implemented UI *Edit* functionality.
+- Implemented *Delete* functionality.
 - Implemented persistent data with SQLite (configurable with `DB_PATH` env variable).
 - Added *Landlord* & *Building* columns.
 - Restored subheaders under *Schedule*.
