@@ -12,7 +12,7 @@ async function initdatabase() {
       "id"	INTEGER NOT NULL UNIQUE,
       "name"	TEXT NOT NULL,
       PRIMARY KEY("id" AUTOINCREMENT)
-	  )`,
+    )`,
     `CREATE TABLE IF NOT EXISTS "People" (
       "id"	INTEGER NOT NULL UNIQUE,
       "name"	TEXT NOT NULL,
@@ -34,7 +34,7 @@ async function initdatabase() {
       "building"	INTEGER NOT NULL,
       FOREIGN KEY("building") REFERENCES "Buildings"("id"),
       PRIMARY KEY("id" AUTOINCREMENT)
-	  )`,
+    )`,
     `CREATE TABLE IF NOT EXISTS "Schedules" (
       "id"	INTEGER NOT NULL UNIQUE,
       "monday"	TEXT,
@@ -45,7 +45,7 @@ async function initdatabase() {
       "saturday"	TEXT,
       "sunday"	TEXT,
       PRIMARY KEY("id" AUTOINCREMENT)
-	  )`
+    )`
   ]
   for( const sql of createtables ) {
     db.prepare( sql ).run()
