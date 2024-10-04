@@ -77,7 +77,7 @@ function addpersoninput() {
     await addperson( getformfieldvalue( "personform-name" ), 
                       getformfieldvalue( "personform-email" ), 
                       getformfieldvalue( "personform-landlord" ), 
-                      getformfieldvalue( "personform-building" ), 
+                      getformfieldvalue( "personform-room" ), 
                       getformfieldvalue( "personform-notes" ) )
     await gopeople()
   } )
@@ -94,7 +94,7 @@ function editperson( ev ) {
   setformfieldvalue( "personform-name", personrow.person.name )
   setformfieldvalue( "personform-email", personrow.person.email )
   setformfieldvalue( "personform-landlord", personrow.person.landlord )
-  setformfieldvalue( "personform-building", personrow.person.building )
+  setformfieldvalue( "personform-room", personrow.person.room )
   setformfieldvalue( "personform-notes", personrow.person.notes )
 
   showform( "personform", async () => {
@@ -102,7 +102,7 @@ function editperson( ev ) {
                         getformfieldvalue("personform-name"),
                         getformfieldvalue("personform-email"),
                         getformfieldvalue("personform-landlord"),
-                        getformfieldvalue("personform-building"),
+                        getformfieldvalue("personform-room"),
                         getformfieldvalue("personform-notes"))
     await gopeople()
   } )
@@ -131,7 +131,7 @@ export function addpersondom( person ) {
   const newrow = table.insertRow()
 
   const cells = []
-  for( let i = 0; i < ( 4 + 7 ); i++ ) {
+  for( let i = 0; i < ( 5 + 7 ); i++ ) {
     cells.push( newrow.insertCell( i ) )
   }
 
@@ -139,7 +139,8 @@ export function addpersondom( person ) {
   newrow.person = person
   cells[ 0 ].innerText = person.name
   cells[ 8 ].innerText = person.landlord
-  cells[ 9 ].innerText = person.building
+  cells[ 9 ].innerText = person.room
+  cells[ 10 ].innerText = person.building
 
   const editbutton = document.createElement( "button" )
   editbutton.textContent = "Edit"
@@ -151,6 +152,6 @@ export function addpersondom( person ) {
   deletebutton.className = "deleteperson"
   deletebutton.addEventListener( "click", deletepersoninput )
 
-  cells[ 10 ].appendChild( editbutton )
-  cells[ 10 ].appendChild( deletebutton )
+  cells[ 11 ].appendChild( editbutton )
+  cells[ 11 ].appendChild( deletebutton )
 }

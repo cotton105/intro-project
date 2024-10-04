@@ -22,6 +22,7 @@
                         <th>Name</th>
                         <th colspan="7">Schedule</th>
                         <th>Landlord</th>
+                        <th>Room</th>
                         <th>Building</th>
                         <th>Action</th>
                     </tr>
@@ -34,6 +35,7 @@
                         <th class="day-5"></th>
                         <th class="day-6"></th>
                         <th class="day-7"></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -66,8 +68,9 @@
               <input type="text" id="personform-landlord">
             </div>
             <div class="form-group">
-              <label for="personform-building">Building</label>
-              <input type="text" id="personform-building">
+              <label for="personform-room">Room</label>
+              <select id="personform-room"></select>
+              <button type="button" id="personform-addroom">+</button>
             </div>
             <div class="form-group">
               <label for="personform-notes">Notes</label>
@@ -78,6 +81,22 @@
           </form>
     </div>
 
+    <div id="roomform" class="container" style="display: none;">
+        <form>
+            <h2>Room</h2>
+            <div class="form-group">
+              <label for="roomform-name">Name</label>
+              <input type="text" id="roomform-name"></select>
+            </div>
+            <div class="form-group">
+              <label for="roomform-building">Building</label>
+              <select id="roomform-building"></select>
+              <button type="button" id="addbuilding">+</button>
+            </div>
+            <button type="submit" id="personform-submit">Save</button>
+            <button class="close" type="button">Close</button>
+          </form>
+    </div>
 
     <div id="workflowform" class="container" style="display: none;">
         <form>
